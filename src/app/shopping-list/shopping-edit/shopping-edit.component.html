@@ -15,7 +15,8 @@
       <div class="row mt-3">
         <div class="col-xs-12">
           <button class="btn btn-success mx-1 " type="submit" [disabled]="!form.valid">{{editMode? 'Update':'Add'}}</button>
-          <button class="btn btn-danger mx-1" type="button" (click)="deleteIngredient()">Delete</button>
+          <button class="btn btn-danger mx-1" type="button" (click)="deleteIngredient()"
+          *ngIf="editMode">Delete</button>
           <button class="btn btn-primary mx-1" type="button" (click)="clear()">Clear</button>
         </div>
       </div>
