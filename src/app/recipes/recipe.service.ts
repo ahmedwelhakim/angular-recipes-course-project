@@ -1,10 +1,12 @@
 import { EventEmitter, Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 import { Ingredient } from "../shared/ingredient.model";
 import { Recipe } from "./recipe.model";
 
-@Injectable()
+@Injectable({providedIn:"root"})
 export class RecipeService{
-  private recipes: Recipe[] = [
+  recipesChanged = new Subject<Recipe[]>();
+  private _recipes: Recipe[] = [
     new Recipe(
       'Tasty Schnitzel',
       'A super-tasty Schnitzel - just awesome!',
@@ -22,9 +24,27 @@ export class RecipeService{
       ])
   ];
   getRecipes(){
-    return this.recipes.slice();
+    return this._recipes.slice();
   }
   getRecipe(index:number){
-    return this.recipes[index];
+    return this._recipes[index];
+  }
+  updateRecipe(index:number, updatedRecipe:Recipe){
+    this._recipes[index] = updatedRecipe;
+    this.recipesChanged.next(this._recipes.slice());
+  }
+  addRecipe(newRecipe:Recipe){
+    this._recipes.push(newRecipe);
+    this.recipesChanged.next(this._recipes.slice());
+  }
+  deleteRecipe(index:number){
+    this._recipes.splice(index,1) ;
+    this.recipesChanged.next(this._recipes.slice());
+  }
+  getIndex(recipe:Recipe){
+    return this._recipes.indexOf(recipe);
+  }
+  get isEmpty(){
+    return this._recipes.length === 0;
   }
 }

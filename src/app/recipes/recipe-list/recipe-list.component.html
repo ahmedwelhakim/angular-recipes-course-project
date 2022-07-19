@@ -4,8 +4,14 @@
   </div>
 </div>
 <hr>
-<div class="row">
+<div class="row" *ngIf="recipes.length !== 0">
   <div class="col-xs-12">
     <app-recipe-item *ngFor="let recipe of recipes; let i = index" [index]="i" [recipeItem]="recipe"></app-recipe-item>
   </div>
 </div>
+<div class="row" *ngIf="recipes.length === 0">
+  <div class="col-xs-12">
+   <p class="text text-dark fs-3"> Please Add a new Recipe!</p>
+  </div>
+</div>
+
