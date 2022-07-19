@@ -13,8 +13,8 @@
         <li class="nav-item dropdown" appDropdown>
           <a class="nav-link dropdown-toggle" style="cursor:pointer" id="dropdownId" data-bs-toggle="dropdown">Manage</a>
           <div  class="dropdown-menu" #drop>
-            <a class="dropdown-item" style="cursor:pointer">Save Data</a>
-            <a class="dropdown-item" style="cursor:pointer" >Fetch Data</a>
+            <a class="dropdown-item" style="cursor:pointer" (click)="onSaveData()">Save Data</a>
+            <a class="dropdown-item" style="cursor:pointer"(click)="onFetchData()" >Fetch Data</a>
           </div>
         </li>
       </ul>
