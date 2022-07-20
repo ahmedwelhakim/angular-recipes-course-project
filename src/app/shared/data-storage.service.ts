@@ -2,7 +2,7 @@ import { RecipeService } from './../recipes/recipe.service';
 import { Injectable } from '@angular/core';
 import { Recipe } from '../recipes/recipe.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { count, Subject, Subscription, map } from 'rxjs';
+import { count, Subject, Subscription, map, tap } from 'rxjs';
 
 const recipesUrl = 'https://ng-well-learning-default-rtdb.firebaseio.com/recipes.json';
 @Injectable({
@@ -24,26 +24,13 @@ export class DataStorageService {
   fetchData() {
     const recipesData: Recipe[] = [];
 
-    this.http.get< Recipe[] >(recipesUrl).pipe(map((recipes)=>{
-      recipes.forEach(recipe=>{
-        recipe.ingredients = recipe.ingredients? recipe.ingredients : [];
+    return this.http.get<Recipe[]>(recipesUrl).pipe(map((recipes) => {
+      recipes.forEach(recipe => {
+        recipe.ingredients = recipe.ingredients ? recipe.ingredients : [];
       })
       return recipes;
-    })).subscribe({
-      next: (dataResponse) => {
-              dataResponse.forEach((rec)=>{
-                recipesData.push(new Recipe(
-                  rec.name,
-                  rec.description,
-                  rec.imagePath,
-                  rec.ingredients
-                ));
-              })
-        this.recipeService.setRecipes(recipesData);
-      },
-      error: (err: HttpErrorResponse) => {
-        this.errors.next(err.message);
-      }
-    });
+    })).pipe(tap((recipes) => {
+      this.recipeService.setRecipes(recipes);
+    }));
   }
 }
