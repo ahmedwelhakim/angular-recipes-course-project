@@ -1,15 +1,15 @@
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-sm-12">
     <form (ngSubmit)="onSubmit()" #form="ngForm">
       <div class="row">
         <div class="col-sm-5 form-group">
           <label for="name" class="fw-bold">Name</label>
-          <input type="text" id="name" class="form-control" name="name" ngModel required>
+          <input type="text" id="name" class="form-control rounded-pill" name="name" ngModel required>
 
         </div>
         <div class="col-sm-2 form-group">
           <label for="amount" class="fw-bold">Amount</label>
-          <input type="number" id="amount" class="form-control" name="amount" pattern="^[1-9]+[0-9]*$" ngModel required>
+          <input type="number" id="amount" class="form-control rounded-pill" name="amount" pattern="^[1-9]+[0-9]*$" ngModel required>
         </div>
       </div>
       <div class="row mt-3">

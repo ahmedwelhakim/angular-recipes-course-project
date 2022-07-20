@@ -6,7 +6,6 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable, of, retry } from 'rxjs';
 import { Recipe } from './recipe.model';
 
 @Injectable({

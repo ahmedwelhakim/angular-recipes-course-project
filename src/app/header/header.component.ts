@@ -1,5 +1,8 @@
+
+import { AuthService } from './../auth/auth.service';
 import { DataStorageService } from './../shared/data-storage.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { exhaustMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -8,17 +11,22 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   @Output() itemSelected = new EventEmitter<string>();
-  constructor(private dataStorageService:DataStorageService) { }
-
+  constructor(private dataStorageService:DataStorageService, private authService:AuthService) { }
+  loggedIn = false;
   ngOnInit(): void {
+
+    this.authService.user.subscribe((user)=>{
+      this.loggedIn = user!==null;
+    });
   }
-  onItemSelected(item:string){
-    this.itemSelected.emit(item);
-  }
+
   onSaveData(){
     this.dataStorageService.storeData();
   }
   onFetchData(){
     this.dataStorageService.fetchData().subscribe();
+  }
+  logout(){
+    this.authService.logout();
   }
 }

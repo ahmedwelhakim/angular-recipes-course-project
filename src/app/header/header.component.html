@@ -1,23 +1,41 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark">
+<nav class="navbar navbar-expand navbar-dark bg-dark justify-content-center">
   <div class="container">
-    <a class="navbar-brand" >Recipe</a>
+    <a class="navbar-brand">Recipe</a>
 
     <div class="collapse navbar-collapse" id="collapsibleNavId">
-      <ul class="navbar-nav me-auto mt-2 mt-lg-0">
+      <ul class="navbar-nav mt-2 mt-lg-0">
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="recipes" (click)="onItemSelected('recipes')">Recipes</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="recipes" *ngIf="loggedIn">
+            Recipes
+          </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" routerLinkActive="active" routerLink="shopping-list"(click)="onItemSelected('shopping-list')">Shopping List</a>
-        </li>
-        <li class="nav-item dropdown" appDropdown>
-          <a class="nav-link dropdown-toggle" style="cursor:pointer" id="dropdownId" data-bs-toggle="dropdown">Manage</a>
-          <div  class="dropdown-menu" #drop>
-            <a class="dropdown-item" style="cursor:pointer" (click)="onSaveData()">Save Data</a>
-            <a class="dropdown-item" style="cursor:pointer"(click)="onFetchData()" >Fetch Data</a>
-          </div>
+          <a class="nav-link" routerLinkActive="active" routerLink="shopping-list">
+            Shopping List
+          </a>
         </li>
       </ul>
     </div>
+    <ul class="navbar-nav  mt-2 mt-lg-0 me-2 justify-content-end">
+      <li class="nav-item dropdown me-4" appDropdown>
+        <a class="nav-link dropdown-toggle" style="cursor:pointer" id="dropdownId" data-bs-toggle="dropdown" *ngIf="loggedIn">Manage</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" style="cursor:pointer" (click)="onSaveData()">Save Data</a>
+          <a class="dropdown-item" style="cursor:pointer" (click)="onFetchData()">Fetch Data</a>
+        </div>
+      </li>
+      <li class="nav-item bg-success rounded-pill px-2" *ngIf="!loggedIn">
+        <a class="nav-link "routerLinkActive="active" routerLink="auth/login" >
+          <i class="bi bi-person-fill "></i> Login
+        </a>
+      </li>
+      <li class="nav-item" *ngIf="loggedIn">
+        <a class="nav-link " (click)="logout()">
+         Logout
+        </a>
+      </li>
+
+    </ul>
+
   </div>
 </nav>
