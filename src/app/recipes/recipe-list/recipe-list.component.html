@@ -1,3 +1,4 @@
+
 <div class="row">
   <div class="col-xs-12">
     <button class="btn btn-success mt-4" [routerLink]="['new']" routerLinkActive="router-link-active" >New Recipe</button>
@@ -9,9 +10,13 @@
     <app-recipe-item *ngFor="let recipe of recipes; let i = index" [index]="i" [recipeItem]="recipe"></app-recipe-item>
   </div>
 </div>
-<div class="row" *ngIf="recipes.length === 0">
+<div class="row" *ngIf="recipes.length === 0 && !fetching">
   <div class="col-xs-12">
    <p class="text text-dark fs-3"> Please Add a new Recipe!</p>
   </div>
 </div>
+<div class="spinner-border" *ngIf="fetching">
+
+</div>
+
 

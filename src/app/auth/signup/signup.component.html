@@ -6,7 +6,7 @@
           <i class="bi bi-person-fill"></i> Sign up Account!
         </h3>
       </div>
-      <form (ngSubmit)="onSubmit()" #singupForm="ngForm">
+      <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
         <div class="mb-3">
           <label for="" class="form-label ">E-mail <i class="text-danger">*</i></label>
           <input type="email" name="email" class="form-control rounded-pill" #email="ngModel" ngModel required email>
@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="mb-3 text-center">
-          <button type="submit" class="btn btn-success rounded-pill px-4" [disabled]="!singupForm.valid">Sign up</button>
+          <button type="submit" class="btn btn-success rounded-pill px-4" [disabled]="!signupForm.valid">Sign up</button>
         </div>
       </form>
       <div class="row m-0">

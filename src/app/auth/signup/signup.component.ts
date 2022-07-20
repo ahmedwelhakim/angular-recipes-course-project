@@ -20,7 +20,6 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   }
   onSubmit(){
-    console.log(this.signUpForm.value);
     this.authService.signUp(this.signUpForm.value.email,this.signUpForm.value.password).subscribe({
       next:(user)=>{
         this.route.navigate(['/recipes'])

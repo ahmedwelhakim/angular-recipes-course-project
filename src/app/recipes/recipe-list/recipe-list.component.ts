@@ -11,13 +11,16 @@ import { Subscription } from 'rxjs';
 export class RecipeListComponent implements OnInit,OnDestroy {
   recipes: Recipe[];
   recpChangedSubs:Subscription;
+  fetching = true;
   constructor(private recipeService:RecipeService,private dataStorageService:DataStorageService) { }
 
   ngOnInit(): void {
     this.recpChangedSubs = this.recipeService.recipesChanged.subscribe(recipesArr=>{
       this.recipes = recipesArr;
     })
-    this.dataStorageService.fetchData().subscribe();
+    this.dataStorageService.fetchData().subscribe(
+      recipes => this.fetching =false
+    );
     this.recipes = this.recipeService.getRecipes();
   }
   ngOnDestroy(): void {
