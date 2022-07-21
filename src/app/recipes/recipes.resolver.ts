@@ -1,20 +1,19 @@
-import { RecipeService } from './recipe.service';
-import { DataStorageService } from './../shared/data-storage.service';
 import { Injectable } from '@angular/core';
 import {
-  Router, Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot, Resolve,
+  RouterStateSnapshot
 } from '@angular/router';
+import { DataStorageService } from './../shared/data-storage.service';
 import { Recipe } from './recipe.model';
+import { RecipeService } from './recipe.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipesResolver implements Resolve<Recipe[]> {
-  constructor(private dataStorageService:DataStorageService, private recpeService:RecipeService){}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
-    if(this.recpeService.getRecipes().length ===0)
+  constructor(private dataStorageService: DataStorageService, private recpeService: RecipeService) { }
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (this.recpeService.getRecipes().length === 0)
       return this.dataStorageService.fetchData();
     else
       return this.recpeService.getRecipes();

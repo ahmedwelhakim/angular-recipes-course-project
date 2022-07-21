@@ -1,6 +1,4 @@
 import { SharedModule } from './../../shared/shared.module';
-import { DropdownDirective } from '../../shared/dropdown.directive';
-import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +20,6 @@ import { RecipesRoutingModule } from './recipes-routing.module';
     RecipeStartComponent,
   ],
   imports:[
-    CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
     RecipesRoutingModule,
