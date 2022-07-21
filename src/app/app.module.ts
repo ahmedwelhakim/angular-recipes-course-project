@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 import { RecipesModule } from './recipes/recipes-modules/recipes.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { NgModule } from '@angular/core';
@@ -31,7 +32,8 @@ import { SignupComponent } from './auth/signup/signup.component';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    RecipesModule
+    RecipesModule,
+    SharedModule
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,
