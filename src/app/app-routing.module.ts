@@ -1,3 +1,4 @@
+import { AuthGuardGuard } from './auth/auth-guard.guard';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RecipesResolver } from './recipes/recipes.resolver';
@@ -25,7 +26,7 @@ const routes: Routes = [
     {path:':id',component:RecipeDetailComponent,resolve:[RecipesResolver]},
     {path:':id/edit',component:RecipeEditComponent,resolve:[RecipesResolver]},
 
-  ]},
+  ],canActivate:[AuthGuardGuard]},
   {path:'shopping-list',component:ShoppingListComponent}
 
 ]

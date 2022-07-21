@@ -17,7 +17,8 @@
         </div>
         <div class="mb-3">
           <label for="" class="form-label ">Password</label>
-          <input type="password" name="password" class="form-control rounded-pill" minlength="6" #pass="ngModel" ngModel required>
+          <input type="password" name="password" class="form-control rounded-pill" minlength="6" #pass="ngModel" ngModel
+            required>
           <div *ngIf="!pass.valid && pass.touched" class="text-danger mt-1">
             Please enter your password!
           </div>
