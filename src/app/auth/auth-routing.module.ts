@@ -4,10 +4,10 @@ import { AuthComponent } from "./auth.component";
 import { LoginComponent } from "./login/login.component";
 import { SignupComponent } from "./signup/signup.component";
 
-const routes:Routes = [
+const routes: Routes = [
   {
-    path: 'auth', component: AuthComponent, children: [
-      { path: '', redirectTo: 'login',pathMatch:'full' },
+    path: '', component: AuthComponent, children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'signup', component: SignupComponent },
     ]
