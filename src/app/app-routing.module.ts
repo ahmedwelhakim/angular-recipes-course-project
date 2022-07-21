@@ -20,13 +20,6 @@ const routes: Routes = [
     {path:'login',component:LoginComponent},
     {path:'signup',component:SignupComponent},
   ]},
-  {path:'recipes',component:RecipesComponent,children:[
-    {path:'',component:RecipeStartComponent},
-    {path:'new',component:RecipeEditComponent},
-    {path:':id',component:RecipeDetailComponent,resolve:[RecipesResolver]},
-    {path:':id/edit',component:RecipeEditComponent,resolve:[RecipesResolver]},
-
-  ],canActivate:[AuthGuardGuard]},
   {path:'shopping-list',component:ShoppingListComponent}
 
 ]
