@@ -13,6 +13,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   @ViewChild('signupForm') signUpForm:NgForm;
   constructor(private authService:AuthService,private route:Router) { }
   errorMessage:string = null;
+  isLoading = false;
 
   ngOnInit(): void {
   }
@@ -20,11 +21,14 @@ export class SignupComponent implements OnInit, OnDestroy {
 
   }
   onSubmit(){
+    this.isLoading = true;
     this.authService.signUp(this.signUpForm.value.email,this.signUpForm.value.password).subscribe({
       next:(user)=>{
+        this.isLoading = false;
         this.route.navigate(['/recipes'])
       },
       error:(err)=>{
+      this.isLoading = false;
       this.errorMessage = err;
     }})
   }

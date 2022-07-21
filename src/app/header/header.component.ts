@@ -11,22 +11,24 @@ import { exhaustMap, take } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
   @Output() itemSelected = new EventEmitter<string>();
-  constructor(private dataStorageService:DataStorageService, private authService:AuthService) { }
+  constructor(private dataStorageService: DataStorageService, private authService: AuthService) { }
   loggedIn = false;
   ngOnInit(): void {
 
-    this.authService.user.subscribe((user)=>{
-      this.loggedIn = user!==null;
+    this.authService.user.subscribe((user) => {
+      this.loggedIn = user !== null;
     });
   }
 
-  onSaveData(){
+  onSaveData() {
     this.dataStorageService.storeData();
   }
-  onFetchData(){
+  onFetchData() {
+
     this.dataStorageService.fetchData().subscribe();
+
   }
-  logout(){
+  logout() {
     this.authService.logout();
   }
 }
