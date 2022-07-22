@@ -1,9 +1,6 @@
-<div class="col-xs-12 mb-3 rounded-3">
-  <a style="cursor:pointer"
-      routerLinkActive="router-link-active"
-      class="list-group-item clearfix"
-      [routerLink]="[index]"
-      routerLinkActive="active">
+<div class="col-xs-12 mb-3 rounded-3 nav-pills light-dim">
+  <a style="cursor:pointer" routerLinkActive="active" class="list-group-item clearfix nav-link p-3"
+    [routerLink]="[index]">
     <div class="float-start">
       <h4 class="list-group-item-heading">{{ recipeItem.name }}</h4>
       <p class="list-group-item-text">{{ recipeItem.description }}</p>

@@ -23,6 +23,11 @@ export class RecipeEditComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMode = params['id'] != null;
+      if (this.id >= this.recipeService.length) {
+        this.router.navigate(['/recipes', 'item-not-found']);
+        this.editMode = false;
+      }
+
       this.initRecipeForm();
     });
   }
@@ -91,7 +96,7 @@ export class RecipeEditComponent implements OnInit {
     if (this.editMode) {
       this.router.navigate(['..'], { relativeTo: this.route });
     } else {
-      this.router.navigate(['../', this.recipeService.getIndex(recipe)], { relativeTo: this.route });
+      this.router.navigate(['../../', this.recipeService.getIndex(recipe)], { relativeTo: this.route });
     }
   }
   clear() {

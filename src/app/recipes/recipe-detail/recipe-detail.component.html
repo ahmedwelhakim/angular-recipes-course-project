@@ -1,40 +1,42 @@
-<div class="row">
-  <div class="col-xs-12">
-    <img [src]="recipeItem.imagePath" alt={{recipeItem.name}} [style]="' maxHeight:300px'" class="img-responsive">
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <h1>{{recipeItem.name}}</h1>
-  </div>
-</div>
-<hr />
-<div class="row">
-  <div class="col-xs-12">
-    {{recipeItem.description}}
-  </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <div class="list-group my-3">
-      <li class="list-group-item " *ngFor="let ingredient of recipeItem.ingredients">
-        {{ingredient.name}} - ({{ingredient.amount}})
-      </li>
+<div class="container" *ngIf="recipeItem">
+  <div class="row">
+    <div class="col-xs-12">
+      <img [src]="recipeItem.imagePath" alt={{recipeItem.name}} [style]="' maxHeight:300px'" class="img-responsive">
     </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-xs-12">
-    <div class=" dropdown" appDropdown>
-      <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown">
-        Manage Recipe
-      </button>
-      <ul class="dropdown-menu ">
-        <li><a class="dropdown-item" style="cursor:pointer" (click)="toShoppingList()">To Shopping List</a></li>
-        <li><a class="dropdown-item" style="cursor:pointer" [routerLink]="['edit']"
-            routerLinkActive="router-link-active">Edit Recipe</a></li>
-        <li><a class="dropdown-item" style="cursor:pointer" (click)="deleteRecipe()">Delete Recipe</a></li>
-      </ul>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>{{recipeItem.name}}</h1>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-xs-12">
+      {{recipeItem.description}}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="list-group my-3">
+        <li class="list-group-item " *ngFor="let ingredient of recipeItem.ingredients">
+          {{ingredient.name}} - ({{ingredient.amount}})
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class=" dropdown" appDropdown>
+        <button type="button" class="btn btn-primary dropdown-toggle  " data-bs-toggle="dropdown">
+          Manage Recipe
+        </button>
+        <ul class="dropdown-menu ">
+          <li><a class="dropdown-item" style="cursor:pointer" (click)="toShoppingList()">To Shopping List</a></li>
+          <li><a class="dropdown-item" style="cursor:pointer" [routerLink]="['edit']"
+              routerLinkActive="router-link-active">Edit Recipe</a></li>
+          <li><a class="dropdown-item" style="cursor:pointer" (click)="deleteRecipe()">Delete Recipe</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>

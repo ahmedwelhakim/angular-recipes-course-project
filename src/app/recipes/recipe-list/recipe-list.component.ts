@@ -18,16 +18,18 @@ export class RecipeListComponent implements OnInit, OnDestroy {
     this.recpChangedSubs = this.recipeService.recipesChanged.subscribe(recipesArr => {
       this.recipes = recipesArr;
     })
-
-    this.fetching = true;
-    this.dataStorageService.fetchData().subscribe(
-      recipes => {
-        this.fetching = false
-        this.recipes = recipes;
-      }
-    );
-
-
+    // if (this.recipeService.getRecipes().length === 0) {
+    //   this.fetching = true;
+    //   this.dataStorageService.fetchData().subscribe(
+    //     recipes => {
+    //       this.fetching = false
+    //       this.recipes = recipes;
+    //     }
+    //   );
+    // } else {
+    //   this.recipes = this.recipeService.getRecipes();
+    // }
+    this.recipes = this.recipeService.getRecipes();
   }
   ngOnDestroy(): void {
     this.recpChangedSubs.unsubscribe();

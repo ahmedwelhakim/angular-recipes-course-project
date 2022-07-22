@@ -2,9 +2,10 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { Recipe } from "./recipe.model";
 
-@Injectable({providedIn:"root"})
-export class RecipeService{
+@Injectable({ providedIn: "root" })
+export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
+  private _touched = false;
   private _recipes: Recipe[] = []  //[
   //   new Recipe(
   //     'Tasty Schnitzel',
@@ -22,41 +23,59 @@ export class RecipeService{
   //       new Ingredient('Meat', 1)
   //     ])
   // ];
-  getRecipes(){
+  getRecipes() {
     return this._recipes.slice();
   }
-  getRecipe(index:number){
+  getRecipe(index: number) {
+    if (index >= this._recipes.length) {
+      return null;
+    }
     return this._recipes[index];
   }
-  updateRecipe(index:number, updatedRecipe:Recipe){
+  get length() {
+    return this._recipes.length;
+  }
+  get touched() {
+    return this._touched;
+  }
+  set touched(val) {
+    val === true ? this._touched = true : this._touched;
+  }
+  updateRecipe(index: number, updatedRecipe: Recipe) {
+    this._touched = true;
     this._recipes[index] = updatedRecipe;
     this.recipesChanged.next(this._recipes.slice());
   }
-  addRecipe(newRecipe:Recipe){
+  addRecipe(newRecipe: Recipe) {
+    this._touched = true;
     this._recipes.push(newRecipe);
     this.recipesChanged.next(this._recipes.slice());
   }
-  addRecipes(newRecipes:Recipe[]){
+  addRecipes(newRecipes: Recipe[]) {
+    this._touched = true;
     this._recipes.push(...newRecipes);
     this.recipesChanged.next(this._recipes.slice());
   }
-  setRecipes(newRecipes:Recipe[]){
-    this._recipes = [] ;
+  setRecipes(newRecipes: Recipe[]) {
+    this._touched = true;
+    this._recipes = [];
     this._recipes.push(...newRecipes);
     this.recipesChanged.next(this._recipes.slice());
   }
-  deleteRecipe(index:number){
-    this._recipes.splice(index,1) ;
+  deleteRecipe(index: number) {
+    this._touched = true;
+    this._recipes.splice(index, 1);
     this.recipesChanged.next(this._recipes.slice());
   }
-  deleteAllRecipes(){
-    this._recipes = [] ;
+  deleteAllRecipes() {
+    this._touched = true;
+    this._recipes = [];
     this.recipesChanged.next(this._recipes.slice());
   }
-  getIndex(recipe:Recipe){
+  getIndex(recipe: Recipe) {
     return this._recipes.indexOf(recipe);
   }
-  get isEmpty(){
+  get isEmpty() {
     return this._recipes.length === 0;
   }
 }

@@ -21,13 +21,13 @@ export class RecipeDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params: Params) => {
-      if (!this.recipeService.isEmpty) {
-        this.id = +params['id'];
-        this.recipeItem = this.recipeService.getRecipe(this.id);
-      } else {
-        this.router.navigate(['..'], { relativeTo: this.route });
+      this.id = +params['id'];
+      if (isNaN(this.id) || this.id >= this.recipeService.length) {
+        this.router.navigate(['/recipes/item-not-found']);
       }
-
+      else {
+        this.recipeItem = this.recipeService.getRecipe(this.id);
+      }
     })
     this.recipeChangedSubs = this.recipeService.recipesChanged.subscribe(recipes => {
       if (!this.recipeService.isEmpty) {

@@ -6,14 +6,18 @@ import { RecipeStartComponent } from '../recipe-start/recipe-start.component';
 import { RecipesComponent } from '../recipes.component';
 import { RecipesResolver } from '../recipes.resolver';
 import { AuthGuardGuard } from './../../auth/auth-guard.guard';
+import { ItemNotFoundComponent } from './../item-not-found/item-not-found.component';
+import { RedirectFirstRecipeResolver } from './../redirect-first-recipe.resolver';
 
 const routes: Routes = [
   {
-    path: '', component: RecipesComponent, children: [
-      { path: '', component: RecipeStartComponent },
+    path: '', component: RecipesComponent, resolve: [RecipesResolver], children: [
+      { path: '', component: RecipeStartComponent, resolve: [RedirectFirstRecipeResolver] },
       { path: 'new', component: RecipeEditComponent },
-      { path: ':id', component: RecipeDetailComponent, resolve: [RecipesResolver] },
-      { path: ':id/edit', component: RecipeEditComponent, resolve: [RecipesResolver] },
+      { path: 'item-not-found', component: ItemNotFoundComponent },
+      { path: ':id', component: RecipeDetailComponent },
+      { path: ':id/edit', component: RecipeEditComponent },
+      { path: '**', component: ItemNotFoundComponent },
     ], canActivate: [AuthGuardGuard]
   }
 ]
