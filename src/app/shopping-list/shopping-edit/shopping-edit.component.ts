@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Ingredient } from 'src/app/shared/ingredient.model';
-import { ShoppingListService } from '../shopping-list.service';
-
+import * as ShoppingListActions from '../store/shopping-list.actions';
+import * as fromApp from './../../store/app.reducer';
 @Component({
   selector: 'app-shopping-edit',
   templateUrl: './shopping-edit.component.html',
@@ -11,40 +12,51 @@ import { ShoppingListService } from '../shopping-list.service';
 })
 export class ShoppingEditComponent implements OnInit, OnDestroy {
 
-  constructor(private shoppingListService: ShoppingListService) { }
+  constructor(private store: Store<fromApp.AppState>) { }
   @ViewChild('form') form: NgForm
   editMode = false;
   indexOfSelectedIngr: number;
-  selectIngrSubscription: Subscription;
+  subscription: Subscription;
   ngOnInit(): void {
-    this.selectIngrSubscription = this.shoppingListService.ingredientEditting.subscribe((index: number) => {
-      let ingredient = this.shoppingListService.ingredients[index];
-      this.form.form.patchValue({ name: ingredient.name as string });
-      this.form.form.patchValue({ amount: ingredient.amount as number });
-      this.indexOfSelectedIngr = this.shoppingListService.ingredients.indexOf(ingredient)
-      this.editMode = true;
-    })
+    this.subscription = this.store.select('shoppingList').subscribe(stateData => {
+      if (stateData.editedIngredientIndex > -1) {
+        this.editMode = true;
+        this.indexOfSelectedIngr = stateData.editedIngredientIndex;
+        this.form.form.patchValue({ name: stateData.editedIngredient.name as string });
+        this.form.form.patchValue({ amount: stateData.editedIngredient.amount as number });
+      } else {
+        this.editMode = false;
+      }
+    });
   }
 
   ngOnDestroy(): void {
-    this.selectIngrSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
   onSubmit() {
     if (this.editMode !== true) {
-      this.shoppingListService.addIngredient(new Ingredient(
-        this.form.value.name, this.form.value.amount));
+      this.store.dispatch(ShoppingListActions
+        .addIngredient({
+          ingredient: new Ingredient(this.form.value.name, this.form.value.amount)
+        })
+      );
     }
     else {
-      this.shoppingListService.updateIngredient(this.indexOfSelectedIngr, new Ingredient(
-        this.form.value.name, this.form.value.amount));
+      this.store.dispatch(ShoppingListActions
+        .updateIngredient({
+          ingredient: new Ingredient(
+            this.form.value.name, this.form.value.amount),
+        })
+      );
     }
     this.clear();
   }
   deleteIngredient() {
-    this.shoppingListService.deleteIngredient(this.indexOfSelectedIngr);
+    this.store.dispatch(ShoppingListActions.deleteIngredient());
     this.clear();
   }
   clear() {
+    this.store.dispatch(ShoppingListActions.stopEdit());
     this.editMode = false;
     this.form.reset();
   }
