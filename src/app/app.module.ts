@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 import { ItemNotFoundComponent } from './recipes/item-not-found/item-not-found.component';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { ItemNotFoundComponent } from './recipes/item-not-found/item-not-found.c
     RecipesModule,
     AuthModule,
     SharedModule,
+    StoreModule.forRoot({}, {}),
   ],
   providers: [{
     provide:HTTP_INTERCEPTORS,
