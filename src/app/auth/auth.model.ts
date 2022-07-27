@@ -1,20 +1,20 @@
-export interface SignUp{
-  email:string;
-  password:string;
-  returnSecureToken:boolean
+export interface SignUp {
+  email: string;
+  password: string;
+  returnSecureToken: boolean
 }
-export interface SignUpInResponse{
-  idToken:string;
-  email:string;
-  refreshToken:string;
-  expiresIn:string;
-  localId:string;
-  registered?:string;
+export interface AuthSuccessResponse {
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  expiresIn: string;
+  localId: string;
+  registered?: string;
 }
-export class User{
-  constructor(public id:string, public email:string,private _token:string, private _tokenExpirationDate:Date, ){}
-  get token(){
-    if(!this._tokenExpirationDate || new Date() > this._tokenExpirationDate){
+export class User {
+  constructor(public id: string, public email: string, private _token: string, private _tokenExpirationDate: Date) { }
+  get token() {
+    if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
       return null;
     }
     return this._token;
